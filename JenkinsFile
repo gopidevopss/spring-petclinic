@@ -14,9 +14,11 @@ pipeline{
             branch: 'main'
            }
        }
-       stage('build the package'){
+       stage('build the package with sonarqube'){
            steps{
-           sh script: 'mvn package'
+           withSonarQubeEnv('sonar') {
+                sh 'mvn package sonar:sonar'
+              }
            }
        }
 
